@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,24 +19,39 @@ namespace Alura.Loja.Testes.ConsoleApp
                     Console.WriteLine(p);
                 }
 
-                //var p1 = produtos.First();
-                //p1.Nome = "Percy Jackson";
 
-                //contexto.SaveChanges();
+                ExibeEntries(contexto.ChangeTracker.Entries());
 
                 Console.WriteLine("============================");
+                ;
 
-                produtos = contexto.Produtos.ToList();
-                foreach (var p in produtos)
+                var novoProdut = new Produto()
                 {
-                    Console.WriteLine(p);
-                }
+                    Nome = "Caos3",
+                    Categoria = "Terror3",
+                    Preco = 6.92
+                };
+                ExibeEntries(contexto.ChangeTracker.Entries());
+
+                contexto.Produtos.Add(novoProdut);
+                ExibeEntries(contexto.ChangeTracker.Entries());
+                contexto.SaveChanges();
+
+                ExibeEntries(contexto.ChangeTracker.Entries());
 
 
 
-            }  
+            }
         }
 
-  
+        private static void ExibeEntries(IEnumerable<EntityEntry> entries)
+        {
+            Console.WriteLine("============================");
+            foreach (var e in entries)
+            {
+                Console.WriteLine(e.Entity.ToString() + " - " +  e.State);
+            }
+        }
+
     }
 }
