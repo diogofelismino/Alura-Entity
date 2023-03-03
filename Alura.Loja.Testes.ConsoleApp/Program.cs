@@ -27,17 +27,29 @@ namespace Alura.Loja.Testes.ConsoleApp
 
                 var novoProdut = new Produto()
                 {
-                    Nome = "Caos3",
-                    Categoria = "Terror3",
+                    Nome = "Caosewq3",
+                    Categoria = "Terrorqwe3",
                     Preco = 6.92
                 };
                 ExibeEntries(contexto.ChangeTracker.Entries());
 
+                //var p1 = produtos.First();
+
                 contexto.Produtos.Add(novoProdut);
-                ExibeEntries(contexto.ChangeTracker.Entries());
-                contexto.SaveChanges();
 
                 ExibeEntries(contexto.ChangeTracker.Entries());
+
+                contexto.Produtos.Remove(novoProdut);
+
+                ExibeEntries(contexto.ChangeTracker.Entries());
+
+                ///contexto.SaveChanges();
+                ///
+                var entry = contexto.Entry(novoProdut);
+                Console.WriteLine("\n\n"+ entry.Entity.ToString() + " - " + entry.State);
+
+
+                //ExibeEntries(contexto.ChangeTracker.Entries());
 
 
 
